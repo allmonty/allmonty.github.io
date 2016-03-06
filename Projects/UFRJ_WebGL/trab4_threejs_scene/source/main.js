@@ -104,15 +104,15 @@ function init()
 
 	loadModel(['models/glider.obj', 'models/glider.mtl'], "Glider");
 	
-	loadModel(['models/RacconMan.obj', 'models/RacconMan.mtl'], "RacconMan");
+	loadModel(['models/racconman.obj', 'models/racconman.mtl'], "RacconMan");
     
-    loadModel(['models/Dragon.obj', 'models/Dragon.mtl'], "Dragon");
+    loadModel(['models/dragon.obj', 'models/dragon.mtl'], "Dragon");
     
-    loadModel(['models/BonesMelee.obj', 'models/BonesMelee.mtl'], "Bones");
+    loadModel(['models/bonesmelee.obj', 'models/bonesmelee.mtl'], "Bones");
     
-    loadModel(['models/IslandNewSea.obj', 'models/IslandNewSea.mtl'], "Island");
+    loadModel(['models/islandnewsea.obj', 'models/islandnewsea.mtl'], "Island");
     
-    loadModel(['models/CharTexAnim.obj', 'models/CharTexAnim.mtl'], "GuanabaraChar");
+    loadModel(['models/chartexanim.obj', 'models/chartexanim.mtl'], "GuanabaraChar");
 
 
 //=====Cube=====//
@@ -126,7 +126,7 @@ function init()
 	loadTexturedPlane('images/pebbles.png', 10, 10, 100, 100, 100, 100, "Cube" + "PlaneBack");
     
 //=====SKYBOX=====//
-	var imagePrefix = "images/Skybox-";
+	var imagePrefix = "images/skybox-";
 	var directions  = ["right", "left", "top", "bottom", "front", "back"];
 	var imageSuffix = ".png";
 	var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );	
