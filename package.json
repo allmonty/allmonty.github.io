@@ -1,0 +1,24 @@
+{
+  "name": "allmonty-site",
+  "version": "0.1.0",
+  "description": "My personal site",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allmonty/allmonty.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allmonty/allmonty.github.io/issues"
+  },
+  "homepage": "https://github.com/allmonty/allmonty.github.io#readme"
+}

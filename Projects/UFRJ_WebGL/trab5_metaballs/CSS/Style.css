@@ -1,0 +1,71 @@
+/*@font-face {
+  font-family: 'Yaahowu';
+  src: url("../fonts/Yaahowu.ttf"); }
+
+@font-face {
+  font-family: 'Adequate';
+  src: url("../fonts/Adequate-ExtraLight.ttf"); }*/
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0; }
+
+body {
+  background-color: #245;
+  margin: 0px 0px 0px 0px;
+  /*font-family: 'Adequate';*/
+  height: 100%;
+  /*background-image: url("../images/footer_lodyas.png");*/
+}
+
+body > * {
+  box-sizing: border-box; }
+
+#centerStripe {
+  position: fixed;
+  background-color: #aaa;
+  opacity: 0.2;
+  left: 25%;
+  width: 50%;
+  height: 100%;
+  -webkit-box-shadow: 10px 14px 18px 1px black;
+  -moz-box-shadow: 10px 14px 18px 1px black;
+  box-shadow: 10px 14px 18px 1px black; }
+
+.controls-opt {
+  margin-bottom: 1.5em; }
+
+.opt-title {
+  font-weight: bold;
+  font-size: 1.2em; }
+
+#controls {
+  overflow-y: auto;
+  height: 50%; }
+
+h1 {
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  color: #000;
+  font-size: 3em; }
+
+#title {
+  text-align: center; }
+
+#fps {
+  color: #fff;
+  text-align: center; }
+
+#page {
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  height: 100%; }
+  #page > h1 {
+    opacity: initial; }
+
+#glcanvas {
+  margin-left: 5%;
+  width: 90%;
+  padding-bottom: 1.6;
+  float: middle; }

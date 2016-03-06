@@ -1,0 +1,22 @@
+body {
+  background-color: #245;
+  color: #fff; }
+
+img {
+  border-radius: 10px; }
+
+section {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-content: space-around; }
+
+img.thumbnail {
+  width: 100%; }
+
+div.thumbnail {
+  width: 7.5%; }
+
+#MyPicture {
+  width: 15%; }

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://orion.lcg.ufrj.br/roma/WebGL/EXAMPLES/gasket2.html -->
+<html hola_ext_inject="disabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Cube in 3D using WebGL</title>
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+attribute vec4 vColor;
+
+uniform mat4 modelView;
+uniform mat4 projection;
+
+uniform mat4 rotation;
+uniform mat4 translate;
+uniform mat4 scale;
+
+varying vec4 fColor;
+
+void
+main()
+{
+    gl_Position = projection * modelView * translate * rotation * scale *vPosition;
+    fColor = vColor;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+varying vec4 fColor;
+
+void
+main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<script type="text/javascript" src="./Robot_files/webgl-utils.js"></script>
+<script type="text/javascript" src="./Robot_files/InitShaders.js"></script>
+<script type="text/javascript" src="./Robot_files/MV.js"></script>
+<script type="text/javascript" src="./Robot_files/Robot.js"></script>
+<script type="text/javascript" src="./Robot_files/RenderObject.js"></script>
+<script type="text/javascript" src="./Robot_files/Models.js"></script>
+<script type="text/javascript" src="./Robot_files/Main_Robot.js"></script>
+</head>   
+
+<body style="background-color: #245; color: #fff;">
+<center>
+
+<canvas id="gl-canvas" width="600" height="450">
+    Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<table>
+	<tr>
+		<td>Body</td>
+		<td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("Body X", 1)' onmouseup='goMoveRobot("Body X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("Body X", -1)' onmouseup='goMoveRobot("Body X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("Body Y", 1)' onmouseup='goMoveRobot("Body Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("Body Y", -1)' onmouseup='goMoveRobot("Body Y", 0)'>-</button></td>
+        <td>Z:</td>
+		<td><button type="button" onmousedown='goMoveRobot("Body Z", 1)' onmouseup='goMoveRobot("Body Z", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("Body Z", -1)' onmouseup='goMoveRobot("Body Z", 0)'>-</button></td>
+	</tr>
+    <tr>
+		<td>Neck</td>
+		<td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("Neck X", 1)' onmouseup='goMoveRobot("Neck X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("Neck X", -1)' onmouseup='goMoveRobot("Neck X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("Neck Y", 1)' onmouseup='goMoveRobot("Neck Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("Neck Y", -1)' onmouseup='goMoveRobot("Neck Y", 0)'>-</button></td>
+        <td>Z:</td>
+		<td><button type="button" onmousedown='goMoveRobot("Neck Z", 1)' onmouseup='goMoveRobot("Neck Z", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("Neck Z", -1)' onmouseup='goMoveRobot("Neck Z", 0)'>-</button></td>
+	</tr>
+    <tr>
+		<td>RightShoulder</td>
+		<td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightShoulder X", 1)' onmouseup='goMoveRobot("RightShoulder X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightShoulder X", -1)' onmouseup='goMoveRobot("RightShoulder X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightShoulder Y", 1)' onmouseup='goMoveRobot("RightShoulder Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightShoulder Y", -1)' onmouseup='goMoveRobot("RightShoulder Y", 0)'>-</button></td>
+        <td>Z:</td>
+		<td><button type="button" onmousedown='goMoveRobot("RightShoulder Z", 1)' onmouseup='goMoveRobot("RightShoulder Z", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightShoulder Z", -1)' onmouseup='goMoveRobot("RightShoulder Z", 0)'>-</button></td>
+	</tr>
+    <tr>
+		<td>RightElbow</td>
+		<td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightElbow X", 1)' onmouseup='goMoveRobot("RightElbow X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightElbow X", -1)' onmouseup='goMoveRobot("RightElbow X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightElbow Y", 1)' onmouseup='goMoveRobot("RightElbow Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightElbow Y", -1)' onmouseup='goMoveRobot("RightElbow Y", 0)'>-</button></td>
+        <td></td>
+		<td></td>
+	</tr>
+    <tr>
+		<td>RightWrist</td>
+		<td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightWrist X", 1)' onmouseup='goMoveRobot("RightWrist X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightWrist X", -1)' onmouseup='goMoveRobot("RightWrist X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightWrist Y", 1)' onmouseup='goMoveRobot("RightWrist Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightWrist Y", -1)' onmouseup='goMoveRobot("RightWrist Y", 0)'>-</button></td>
+        <td></td>
+		<td></td>
+	</tr>
+    <tr>
+        <td>LeftShoulder</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftShoulder X", 1)' onmouseup='goMoveRobot("LeftShoulder X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftShoulder X", -1)' onmouseup='goMoveRobot("LeftShoulder X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftShoulder Y", 1)' onmouseup='goMoveRobot("LeftShoulder Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftShoulder Y", -1)' onmouseup='goMoveRobot("LeftShoulder Y", 0)'>-</button></td>
+        <td>Z:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftShoulder Z", 1)' onmouseup='goMoveRobot("LeftShoulder Z", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftShoulder Z", -1)' onmouseup='goMoveRobot("LeftShoulder Z", 0)'>-</button></td>
+    </tr>
+    <tr>
+        <td>LeftElbow</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftElbow X", 1)' onmouseup='goMoveRobot("LeftElbow X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftElbow X", -1)' onmouseup='goMoveRobot("LeftElbow X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftElbow Y", 1)' onmouseup='goMoveRobot("LeftElbow Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftElbow Y", -1)' onmouseup='goMoveRobot("LeftElbow Y", 0)'>-</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>LeftWrist</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftWrist X", 1)' onmouseup='goMoveRobot("LeftWrist X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftWrist X", -1)' onmouseup='goMoveRobot("LeftWrist X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftWrist Y", 1)' onmouseup='goMoveRobot("LeftWrist Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftWrist Y", -1)' onmouseup='goMoveRobot("LeftWrist Y", 0)'>-</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>RightHip</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightHip X", 1)' onmouseup='goMoveRobot("RightHip X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightHip X", -1)' onmouseup='goMoveRobot("RightHip X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightHip Y", 1)' onmouseup='goMoveRobot("RightHip Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightHip Y", -1)' onmouseup='goMoveRobot("RightHip Y", 0)'>-</button></td>
+        <td>Z:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightHip Z", 1)' onmouseup='goMoveRobot("RightHip Z", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightHip Z", -1)' onmouseup='goMoveRobot("RightHip Z", 0)'>-</button></td>
+    </tr>
+    <tr>
+        <td>RightKnee</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightKnee X", 1)' onmouseup='goMoveRobot("RightKnee X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightKnee X", -1)' onmouseup='goMoveRobot("RightKnee X", 0)'>-</button></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>RightAnkle</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("RightAnkle X", 1)' onmouseup='goMoveRobot("RightAnkle X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("RightAnkle X", -1)' onmouseup='goMoveRobot("RightAnkle X", 0)'>-</button></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+		<td>LeftHip</td>
+		<td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftHip X", 1)' onmouseup='goMoveRobot("LeftHip X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftHip X", -1)' onmouseup='goMoveRobot("LeftHip X", 0)'>-</button></td>
+        <td>Y:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftHip Y", 1)' onmouseup='goMoveRobot("LeftHip Y", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftHip Y", -1)' onmouseup='goMoveRobot("LeftHip Y", 0)'>-</button></td>
+        <td>Z:</td>
+		<td><button type="button" onmousedown='goMoveRobot("LeftHip Z", 1)' onmouseup='goMoveRobot("LeftHip Z", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftHip Z", -1)' onmouseup='goMoveRobot("LeftHip Z", 0)'>-</button></td>
+	</tr>
+    <tr>
+		<td>LeftKnee</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftKnee X", 1)' onmouseup='goMoveRobot("LeftKnee X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftKnee X", -1)' onmouseup='goMoveRobot("LeftKnee X", 0)'>-</button></td>
+        <td></td>
+        <td></td>
+		<td></td>
+		<td></td>
+	</tr>
+    <tr>
+        <td>LeftAnkle</td>
+        <td>X:</td>
+        <td><button type="button" onmousedown='goMoveRobot("LeftAnkle X", 1)' onmouseup='goMoveRobot("LeftAnkle X", 0)'>+</button>
+            <button type="button" onmousedown='goMoveRobot("LeftAnkle X", -1)' onmouseup='goMoveRobot("LeftAnkle X", 0)'>-</button></td>
+        <td></td>
+        <td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+    
+</center>
+</body></html>
