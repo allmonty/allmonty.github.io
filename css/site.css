@@ -1,28 +1,22 @@
 body {
   background-color: #245;
-  color: #fff;
-}
+  color: #fff; }
 
 img {
-  border-radius: 10px;
-}
+  border-radius: 10px; }
 
 section {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  justify-content: space-around;
-}
+  justify-content: center; }
 
 img.thumbnail {
-  width: 100%;
-}
+  width: 100%; }
 
 div.thumbnail {
-  width: 7.5%;
-}
+  width: 10%;
+  margin: 0.5%; }
 
 #MyPicture {
-  width: 15%;
-}
+  width: 15%; }

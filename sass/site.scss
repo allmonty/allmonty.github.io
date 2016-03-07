@@ -10,10 +10,10 @@ img {
 
 section {
     width: 100%;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    justify-content: space-around;
 }
 
 img.thumbnail {
@@ -21,7 +21,8 @@ img.thumbnail {
 }
 
 div.thumbnail {
-    width: 7.5%;
+    width: 10%;
+    margin: 0.5%;
 }
 
 #MyPicture {
