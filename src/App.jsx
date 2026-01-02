@@ -55,41 +55,8 @@ marked.setOptions({
 
 const renderMarkdown = (md) => marked.parse(md || '');
 
-const projects = [
-  {
-    title: 'Developer Portfolio',
-    description: 'React single-page layout; writing and hobbies live in Markdown.',
-    tech: ['React', 'Vite', 'Content-first'],
-    link: '#',
-  },
-  {
-    title: 'Travel Notes',
-    description: 'Routes, trains, and tiny itineraries logged plainly.',
-    tech: ['Markdown', 'Maps'],
-    link: '#',
-  },
-  {
-    title: 'Micro Experiments',
-    description: 'Small UI sketches focused on motion, type, and restraint.',
-    tech: ['Design', 'Proto'],
-    link: '#',
-  },
-];
-
-const hobbies = [
-  {
-    title: 'Photography',
-    blurb: 'City corners, late light, and quiet trails.',
-  },
-  {
-    title: 'Travel',
-    blurb: 'Slow rail routes and long walks between stops.',
-  },
-  {
-    title: 'Writing',
-    blurb: 'Short notes on building and learning.',
-  },
-];
+// Sort posts by date (newest first)
+posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
 export default function App() {
   const initialSlug = useMemo(() => {
@@ -98,10 +65,33 @@ export default function App() {
   }, []);
 
   const [viewSlug, setViewSlug] = useState(initialSlug);
+  const [selectedTags, setSelectedTags] = useState([]);
+
   const viewPost = useMemo(
     () => (viewSlug ? posts.find((post) => post.slug === viewSlug) || null : null),
     [viewSlug]
   );
+
+  const allTags = useMemo(() => {
+    const tags = new Set();
+    posts.forEach((post) => {
+      post.tags.forEach((tag) => tags.add(tag));
+    });
+    return Array.from(tags).sort();
+  }, []);
+
+  const filteredPosts = useMemo(() => {
+    if (selectedTags.length === 0) return posts;
+    return posts.filter((post) =>
+      selectedTags.some((tag) => post.tags.includes(tag))
+    );
+  }, [selectedTags]);
+
+  const toggleTag = (tag) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
 
   useEffect(() => {
     const handler = () => {
@@ -155,18 +145,13 @@ export default function App() {
     <div className="app-shell">
       <header className="hero">
         <div className="hero__text">
-          <p className="eyebrow">Allmonty — portfolio / notes / hobbies</p>
+          <p className="eyebrow">Allmonty — stories, notes, and projects</p>
           <h1>Plain text, deliberate work.</h1>
           <p className="lead">
-            I build calm tools, write short logs, and keep hobbies close. Everything here stays simple: no gloss,
-            just words.
+            I build calm tools, write about learning, and document hobbies plainly. Everything here lives in Markdown.
           </p>
           <div className="inline-links">
-            <a className="text-link" href="#projects">Projects</a>
-            <span>·</span>
-            <a className="text-link" href="#writing">Writing</a>
-            <span>·</span>
-            <a className="text-link" href="#hobbies">Hobbies</a>
+            <a className="text-link" href="#stories">Stories</a>
           </div>
         </div>
         <div className="hero__note">
@@ -177,45 +162,30 @@ export default function App() {
       </header>
 
       <main>
-        <section id="projects" className="section">
+        <section id="stories" className="section">
           <div className="section__header">
-            <p className="eyebrow">Projects</p>
-            <h2>Selected work</h2>
+            <p className="eyebrow">Stories & Notes</p>
+            <h2>All posts</h2>
           </div>
-          <ul className="list list--lined">
-            {projects.map((project) => (
-              <li key={project.title} className="list__item">
-                <div className="list__title">{project.title}</div>
-                <div className="list__desc">{project.description}</div>
-                <div className="list__meta">{project.tech.join(' • ')} — {project.link === '#' ? 'Coming soon' : project.link}</div>
-              </li>
+          <div className="tag-filter">
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                className={`tag-button ${selectedTags.includes(tag) ? 'tag-button--active' : ''}`}
+                onClick={() => toggleTag(tag)}
+              >
+                {tag}
+              </button>
             ))}
-          </ul>
-        </section>
-
-        <section id="hobbies" className="section">
-          <div className="section__header">
-            <p className="eyebrow">Hobbies</p>
-            <h2>Offline things</h2>
-          </div>
-          <ul className="list list--split">
-            {hobbies.map((item) => (
-              <li key={item.title} className="list__item">
-                <div className="list__title">{item.title}</div>
-                <div className="list__desc">{item.blurb}</div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section id="writing" className="section">
-          <div className="section__header">
-            <p className="eyebrow">Stories</p>
-            <h2>Notes and logs</h2>
+            {selectedTags.length > 0 && (
+              <button className="tag-button tag-button--clear" onClick={() => setSelectedTags([])}>
+                clear
+              </button>
+            )}
           </div>
           <div className="writing">
             <div className="writing__list">
-              {posts.map((post) => (
+              {filteredPosts.map((post) => (
                 <button
                   key={post.slug}
                   className="post-card"
@@ -227,6 +197,9 @@ export default function App() {
                   <div className="list__meta">{post.tags.join(' / ')}</div>
                 </button>
               ))}
+              {filteredPosts.length === 0 && (
+                <p className="muted">No posts with selected tags.</p>
+              )}
             </div>
           </div>
         </section>

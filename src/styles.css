@@ -136,6 +136,49 @@ body {
   gap: 12px;
 }
 
+.tag-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.tag-button {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--code);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.tag-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.tag-button--active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(176, 65, 27, 0.04);
+}
+
+.tag-button--clear {
+  margin-left: auto;
+  opacity: 0.6;
+}
+
+.tag-button--clear:hover {
+  opacity: 1;
+}
+
 .writing__list {
   display: flex;
   flex-direction: column;
