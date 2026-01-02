@@ -1,11 +1,25 @@
+/**
+ * styles.css - Global styles for the portfolio site
+ * 
+ * Design: Minimalist, text-focused, dark theme
+ * - No rounded corners, pure typography
+ * - Dashed dividers instead of boxes
+ * - Dark background with warm accent color
+ * - Responsive layout that stacks on mobile
+ */
+
 :root {
-  --bg: #fbfaf6;
-  --ink: #16140f;
-  --muted: #5c574e;
-  --accent: #b0411b;
-  --border: #d5cfc1;
+  /* Color palette */
+  --bg: #0f0e0a;              /* Dark charcoal background */
+  --ink: #e8e6e1;             /* Light cream text */
+  --muted: #9d9992;           /* Warm gray for secondary text */
+  --accent: #ff8c42;          /* Warm orange for highlights */
+  --border: #2a2824;          /* Subtle dark gray for borders */
+  
+  /* Typography */
   --code: 'IBM Plex Mono', monospace;
   --text: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  
   background: var(--bg);
   color: var(--ink);
 }
@@ -14,6 +28,7 @@
   box-sizing: border-box;
 }
 
+/* Global layout and typography */
 body {
   margin: 0;
   min-height: 100vh;
@@ -23,12 +38,14 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* Main container: centered column with max-width */
 .app-shell {
   max-width: 880px;
   margin: 0 auto;
   padding: 28px 16px 36px;
 }
 
+/* Hero section: intro text and sidebar info */
 .hero {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -62,6 +79,14 @@ body {
   margin-top: 12px;
 }
 
+.social-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+  color: var(--muted);
+}
+
 .hero__note {
   border-left: 2px solid var(--border);
   padding-left: 12px;
@@ -73,6 +98,10 @@ body {
   margin: 30px 0;
   padding-top: 12px;
   border-top: 1px solid var(--border);
+}
+
+.section:first-of-type {
+  margin-top: 8px; /* tighten gap right after the hero */
 }
 
 .section__header h2 {
@@ -91,6 +120,7 @@ body {
   font-family: var(--code);
 }
 
+/* Text-based list: items separated by dashed lines */
 .list {
   list-style: none;
   padding: 0;
@@ -136,6 +166,14 @@ body {
   gap: 12px;
 }
 
+/* Writing/story section: grid layout for posts */
+.writing {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 12px;
+}
+
+/* Tag filter buttons */
 .tag-filter {
   display: flex;
   gap: 8px;
@@ -145,6 +183,7 @@ body {
   border-bottom: 1px dashed var(--border);
 }
 
+/* Individual tag button */
 .tag-button {
   padding: 6px 10px;
   border: 1px solid var(--border);
@@ -167,7 +206,7 @@ body {
 .tag-button--active {
   border-color: var(--accent);
   color: var(--accent);
-  background: rgba(176, 65, 27, 0.04);
+  background: rgba(255, 140, 66, 0.08);
 }
 
 .tag-button--clear {
@@ -225,6 +264,12 @@ body {
   color: var(--muted);
 }
 
+/* Post content: paragraphs, headings, images, etc. */
+.post__body p {
+  line-height: 1.55;
+  color: var(--muted);
+}
+
 .post__body h1,
 .post__body h2,
 .post__body h3,
@@ -249,6 +294,15 @@ body {
   font-family: var(--code);
   background: rgba(0, 0, 0, 0.04);
   padding: 2px 4px;
+}
+
+.post__body img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0;
+  border: 1px solid var(--border);
+  display: block;
 }
 
 .text-link {
@@ -278,7 +332,9 @@ body {
   font-size: 13px;
 }
 
+/* Responsive design: tablet and below */
 @media (max-width: 900px) {
+  /* Stack hero and writing sections on smaller screens */
   .hero,
   .writing,
   .list--split .list__item {

@@ -1,12 +1,28 @@
+/**
+ * App.jsx - Main React component for the portfolio site
+ * 
+ * This component handles:
+ * - Loading and parsing Markdown articles from the /articles folder
+ * - Routing between the home feed and individual post views via URL params
+ * - Tag-based filtering of posts
+ * - Rendering posts as HTML via the marked library
+ */
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { marked } from 'marked';
 
+// Load all .md files from the articles folder at build time
 const rawPosts = import.meta.glob('./articles/*.md', {
   query: '?raw',
   import: 'default',
   eager: true,
 });
 
+/**
+ * Parses the YAML-like frontmatter block (between ---).
+ * Extracts metadata like title, date, tags, summary.
+ * Handles both string values and array values (e.g., tags: [blog, tech])
+ */
 const parseMetaBlock = (block) => {
   const meta = {};
   const lines = block.split(/\n/).filter(Boolean);
@@ -28,6 +44,13 @@ const parseMetaBlock = (block) => {
   return meta;
 };
 
+/**
+ * Parses a single Markdown file:
+ * 1. Extracts the slug from the filename
+ * 2. Splits frontmatter (---) from body content
+ * 3. Parses metadata from the frontmatter block
+ * 4. Creates a post object with slug, title, date, tags, summary, and content
+ */
 const parseMarkdown = (path, raw) => {
   const slug = path.split('/').pop().replace('.md', '');
   const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)/);
@@ -46,32 +69,46 @@ const parseMarkdown = (path, raw) => {
   };
 };
 
+// Parse all loaded markdown files into post objects
 const posts = Object.entries(rawPosts).map(([path, raw]) => parseMarkdown(path, raw));
 
+// Configure marked for GitHub Flavored Markdown support and line breaks
 marked.setOptions({
   breaks: true,
   gfm: true,
 });
 
+/**
+ * Converts Markdown string to HTML.
+ * Used when rendering full post content.
+ */
 const renderMarkdown = (md) => marked.parse(md || '');
 
 // Sort posts by date (newest first)
 posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+/**
+ * Main App component with routing and state management
+ */
 export default function App() {
+  // Check URL for ?post=slug to determine initial route
   const initialSlug = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get('post');
   }, []);
 
+  // State for which post is currently being viewed (null = home feed)
   const [viewSlug, setViewSlug] = useState(initialSlug);
+  // State for which tags are currently selected in the filter
   const [selectedTags, setSelectedTags] = useState([]);
 
+  // Find the post object matching the current viewSlug
   const viewPost = useMemo(
     () => (viewSlug ? posts.find((post) => post.slug === viewSlug) || null : null),
     [viewSlug]
   );
 
+  // Extract all unique tags from all posts, sorted alphabetically
   const allTags = useMemo(() => {
     const tags = new Set();
     posts.forEach((post) => {
@@ -80,6 +117,7 @@ export default function App() {
     return Array.from(tags).sort();
   }, []);
 
+  // Filter posts based on selected tags (shows posts with ANY of the selected tags)
   const filteredPosts = useMemo(() => {
     if (selectedTags.length === 0) return posts;
     return posts.filter((post) =>
@@ -87,12 +125,14 @@ export default function App() {
     );
   }, [selectedTags]);
 
+  // Toggle a tag on/off in the filter
   const toggleTag = (tag) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
 
+  // Listen for browser back/forward navigation and update URL state
   useEffect(() => {
     const handler = () => {
       const params = new URLSearchParams(window.location.search);
@@ -102,17 +142,20 @@ export default function App() {
     return () => window.removeEventListener('popstate', handler);
   }, []);
 
+  // Navigate to a specific post view and update URL
   const openPost = (slug) => {
     const url = `?post=${slug}`;
     window.history.pushState({}, '', url);
     setViewSlug(slug);
   };
 
+  // Return to home feed and update URL
   const goHome = () => {
     window.history.pushState({}, '', window.location.pathname);
     setViewSlug(null);
   };
 
+  // Single post view: display full content of the selected post
   if (viewPost) {
     return (
       <div className="app-shell">
@@ -141,8 +184,10 @@ export default function App() {
     );
   }
 
+  // Home feed view: display hero, tag filters, and list of posts
   return (
     <div className="app-shell">
+      {/* Hero section with site intro */}
       <header className="hero">
         <div className="hero__text">
           <p className="eyebrow">Allmonty — stories, notes, and projects</p>
@@ -152,6 +197,19 @@ export default function App() {
           </p>
           <div className="inline-links">
             <a className="text-link" href="#stories">Stories</a>
+          </div>
+          <div className="social-links">
+            <a className="text-link" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+            <span>·</span>
+            <a className="text-link" href="https://github.com/your-handle" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <span>·</span>
+            <a className="text-link" href="mailto:you@example.com">
+              Email
+            </a>
           </div>
         </div>
         <div className="hero__note">
