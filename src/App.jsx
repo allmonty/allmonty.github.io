@@ -1,6 +1,11 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { marked } from 'marked';
 
-const rawPosts = import.meta.glob('./articles/*.md', { as: 'raw', eager: true });
+const rawPosts = import.meta.glob('./articles/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
 
 const parseMetaBlock = (block) => {
   const meta = {};
@@ -43,23 +48,30 @@ const parseMarkdown = (path, raw) => {
 
 const posts = Object.entries(rawPosts).map(([path, raw]) => parseMarkdown(path, raw));
 
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
+
+const renderMarkdown = (md) => marked.parse(md || '');
+
 const projects = [
   {
     title: 'Developer Portfolio',
-    description: 'React single-page layout that highlights work, writing, and hobbies in a compact view.',
-    tech: ['React', 'Vite', 'CSS Modules'],
+    description: 'React single-page layout; writing and hobbies live in Markdown.',
+    tech: ['React', 'Vite', 'Content-first'],
     link: '#',
   },
   {
     title: 'Travel Notes',
-    description: 'Photo-forward stories with quick meta data to keep trips memorable and easy to skim.',
-    tech: ['Markdown', 'Content-first'],
+    description: 'Routes, trains, and tiny itineraries logged plainly.',
+    tech: ['Markdown', 'Maps'],
     link: '#',
   },
   {
     title: 'Micro Experiments',
-    description: 'Lightweight UI sketches that explore motion, typography, and color palettes.',
-    tech: ['Design', 'Prototyping'],
+    description: 'Small UI sketches focused on motion, type, and restraint.',
+    tech: ['Design', 'Proto'],
     link: '#',
   },
 ];
@@ -67,55 +79,100 @@ const projects = [
 const hobbies = [
   {
     title: 'Photography',
-    blurb: 'Chasing light and framing honest moments in cities and on trails.',
-    image:
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
+    blurb: 'City corners, late light, and quiet trails.',
   },
   {
     title: 'Travel',
-    blurb: 'Collecting slow itineraries, rail routes, and small cafes worth revisiting.',
-    image:
-      'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80',
+    blurb: 'Slow rail routes and long walks between stops.',
   },
   {
     title: 'Writing',
-    blurb: 'Short notes about building products, learning, and weekend projects.',
-    image:
-      'https://images.unsplash.com/photo-1487412912498-0447578fcca8?auto=format&fit=crop&w=1200&q=80',
+    blurb: 'Short notes on building and learning.',
   },
 ];
 
 export default function App() {
-  const [activeSlug, setActiveSlug] = useState(posts[0]?.slug || null);
-  const activePost = useMemo(
-    () => posts.find((post) => post.slug === activeSlug) || posts[0] || null,
-    [activeSlug]
+  const initialSlug = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('post');
+  }, []);
+
+  const [viewSlug, setViewSlug] = useState(initialSlug);
+  const viewPost = useMemo(
+    () => (viewSlug ? posts.find((post) => post.slug === viewSlug) || null : null),
+    [viewSlug]
   );
+
+  useEffect(() => {
+    const handler = () => {
+      const params = new URLSearchParams(window.location.search);
+      setViewSlug(params.get('post'));
+    };
+    window.addEventListener('popstate', handler);
+    return () => window.removeEventListener('popstate', handler);
+  }, []);
+
+  const openPost = (slug) => {
+    const url = `?post=${slug}`;
+    window.history.pushState({}, '', url);
+    setViewSlug(slug);
+  };
+
+  const goHome = () => {
+    window.history.pushState({}, '', window.location.pathname);
+    setViewSlug(null);
+  };
+
+  if (viewPost) {
+    return (
+      <div className="app-shell">
+        <header className="hero hero--single">
+          <div className="hero__text">
+            <p className="eyebrow">Story</p>
+            <h1>{viewPost.title}</h1>
+            <p className="muted text-sm">{viewPost.date}</p>
+          </div>
+          <div className="hero__note">
+            <p className="muted">Tags: {viewPost.tags.join(' / ') || '—'}</p>
+            <button className="text-link" onClick={goHome} aria-label="Back to home">
+              ← Back
+            </button>
+          </div>
+        </header>
+        <main>
+          <article className="post post--full">
+            <div
+              className="post__body"
+              dangerouslySetInnerHTML={{ __html: renderMarkdown(viewPost.content) }}
+            />
+          </article>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="app-shell">
       <header className="hero">
         <div className="hero__text">
-          <p className="eyebrow">Portfolio • Writing • Hobbies</p>
-          <h1>Hi, I'm Allmonty.</h1>
+          <p className="eyebrow">Allmonty — portfolio / notes / hobbies</p>
+          <h1>Plain text, deliberate work.</h1>
           <p className="lead">
-            I design and build thoughtful software, capture photos on the road, and share stories about
-            the process. This site keeps my projects and notes in one place.
+            I build calm tools, write short logs, and keep hobbies close. Everything here stays simple: no gloss,
+            just words.
           </p>
-          <div className="hero__actions">
-            <a className="btn" href="#projects">View projects</a>
-            <a className="btn ghost" href="#writing">Read stories</a>
+          <div className="inline-links">
+            <a className="text-link" href="#projects">Projects</a>
+            <span>·</span>
+            <a className="text-link" href="#writing">Writing</a>
+            <span>·</span>
+            <a className="text-link" href="#hobbies">Hobbies</a>
           </div>
         </div>
-        <div className="hero__card">
-          <div className="hero__badge">Now</div>
-          <h3>Building calm, useful tools.</h3>
-          <p className="muted">Focused on developer experience, small teams, and deliberate design.</p>
-          <ul className="tags">
-            <li>React</li>
-            <li>Design systems</li>
-            <li>Product thinking</li>
-          </ul>
+        <div className="hero__note">
+          <p className="muted">Now: building tools for small teams.</p>
+          <p className="muted">Stack: React, Vite, Markdown.</p>
+          <p className="muted">Location: Remote-first.</p>
         </div>
       </header>
 
@@ -125,90 +182,58 @@ export default function App() {
             <p className="eyebrow">Projects</p>
             <h2>Selected work</h2>
           </div>
-          <div className="cards-grid">
+          <ul className="list list--lined">
             {projects.map((project) => (
-              <article key={project.title} className="card">
-                <h3>{project.title}</h3>
-                <p className="muted">{project.description}</p>
-                <div className="chip-row">
-                  {project.tech.map((item) => (
-                    <span key={item} className="chip">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <a className="text-link" href={project.link}>
-                  Coming soon
-                </a>
-              </article>
+              <li key={project.title} className="list__item">
+                <div className="list__title">{project.title}</div>
+                <div className="list__desc">{project.description}</div>
+                <div className="list__meta">{project.tech.join(' • ')} — {project.link === '#' ? 'Coming soon' : project.link}</div>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
-        <section id="hobbies" className="section section--alt">
+        <section id="hobbies" className="section">
           <div className="section__header">
             <p className="eyebrow">Hobbies</p>
-            <h2>What I do offline</h2>
+            <h2>Offline things</h2>
           </div>
-          <div className="gallery">
+          <ul className="list list--split">
             {hobbies.map((item) => (
-              <article key={item.title} className="gallery__item">
-                <div className="gallery__image" style={{ backgroundImage: `url(${item.image})` }} />
-                <div className="gallery__body">
-                  <h3>{item.title}</h3>
-                  <p className="muted">{item.blurb}</p>
-                </div>
-              </article>
+              <li key={item.title} className="list__item">
+                <div className="list__title">{item.title}</div>
+                <div className="list__desc">{item.blurb}</div>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         <section id="writing" className="section">
           <div className="section__header">
             <p className="eyebrow">Stories</p>
-            <h2>Blog and notes</h2>
+            <h2>Notes and logs</h2>
           </div>
           <div className="writing">
             <div className="writing__list">
               {posts.map((post) => (
                 <button
                   key={post.slug}
-                  className={`post-card ${post.slug === activePost?.slug ? 'post-card--active' : ''}`}
-                  onClick={() => setActiveSlug(post.slug)}
+                  className="post-card"
+                  onClick={() => openPost(post.slug)}
                 >
-                  <div>
-                    <p className="muted text-sm">{post.date}</p>
-                    <h3>{post.title}</h3>
-                    <p className="muted">{post.summary}</p>
-                  </div>
-                  <div className="chip-row">
-                    {post.tags.map((tag) => (
-                      <span key={tag} className="chip chip--ghost">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <div className="muted text-sm">{post.date}</div>
+                  <div className="list__title">{post.title}</div>
+                  <div className="list__desc">{post.summary}</div>
+                  <div className="list__meta">{post.tags.join(' / ')}</div>
                 </button>
               ))}
             </div>
-            {activePost && (
-              <article className="post">
-                {activePost.cover && <img className="post__cover" src={activePost.cover} alt="" />}
-                <p className="muted text-sm">{activePost.date}</p>
-                <h3>{activePost.title}</h3>
-                <div className="post__body">
-                  {activePost.content.split(/\n\n/).map((block, idx) => (
-                    <p key={idx}>{block}</p>
-                  ))}
-                </div>
-              </article>
-            )}
           </div>
         </section>
       </main>
 
       <footer className="footer">
-        <p className="muted text-sm">Made with React and Markdown. Drop a line anytime.</p>
+        <p className="muted text-sm">Built with React and Markdown. Plain text on purpose.</p>
       </footer>
     </div>
   );
