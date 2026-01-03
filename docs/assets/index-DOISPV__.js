@@ -12,13 +12,11 @@ tags: [tech, photos, travel]
 summary: "My first post of the year, reflecting on the last year's adventures."
 ---
 
-In 2025, I started exploring various hobbies and personal projects. I exhibited my photography online, bought analog and digital cameras, created an app for image filters, learned to play the trumpet, much more. I'll write a detailed post about all these adventures soon, but for now I wanted to share that I've decided to revive this personal website.
+In 2025 I threw myself into a bunch of personal projects: I exhibited my photography, picked up both analog and digital cameras, built a small app for image filters, learned to play the trumpet, and explored a lot of other creative experiments. I’ll share a longer write-up about these adventures soon, but for now I’m reviving this site to collect and publish the work as it happens.
 
-I decided to update this site after taking a closer look at a college friend's website, [Vinizinho.net](https://vinizinho.net/), which I found very interesting and made me think about leaving my own mark on the internet too.
+A college friend’s site, [Vinizinho.net](https://vinizinho.net/), was the nudge I needed — seeing his thoughtful, personal corner of the web inspired me to leave my own mark online.
 
-Well, this is the first post of the year! May 2026 be an amazing year for all of us!
-
-I'm sharing some photos I took recently. I'll be back soon with more posts!
+This is the first post of the year. Here are a few recent photos I’m excited to share — I’ll be back with more stories and updates soon. May 2026 bring great things for all of us!
 
 <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
     <div style="width: 54%;">
