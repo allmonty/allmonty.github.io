@@ -125,6 +125,7 @@ body {
     font-size: 19px;
     letter-spacing: 0.01em;
     font-family: var(--text);
+    margin-bottom: 18px;
 }
 
 .eyebrow {
@@ -350,6 +351,19 @@ body {
     padding-top: 10px;
     margin-top: 24px;
     font-size: 13px;
+}
+
+/* Markdown link styles - override browser defaults with higher specificity */
+.post__body a:link,
+.post__body a:visited,
+.post__body a:hover,
+.post__body a:active {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.post__body a:hover {
+    text-decoration: underline;
 }
 
 /* Responsive design: tablet and below */

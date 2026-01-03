@@ -19,7 +19,7 @@ export default function HomeView({
                         I like to code, play games, take photos, enjoy good food and drinks, and play the trumpet.
                     </p>
                     <p className="additional-info">
-                        I hope to share useful things I learn along the way, and document my little adventures.
+                        I hope to share useful things I learn along the way, and document my experiments and adventures.
                     </p>
                 </div>
                 <div className="hero__note">
@@ -38,6 +38,11 @@ export default function HomeView({
                         <a className="text-link" href="https://www.linkedin.com/in/allanbrados" target="_blank" rel="noreferrer"
                             title="Professional profile/resume">
                             LinkedIn
+                        </a>
+                        <span>·</span>
+                        <a className="text-link" href="https://allmonty.github.io/resume" target="_blank" rel="noreferrer"
+                            title="Professional profile/resume">
+                            Resume
                         </a>
                         <span>·</span>
                         <a className="text-link" href="https://github.com/allmonty" target="_blank" rel="noreferrer"
@@ -71,7 +76,6 @@ export default function HomeView({
             <main>
                 <section id="stories" className="section">
                     <div className="section__header">
-                        <p className="eyebrow">Stories & Notes</p>
                         <h2>All posts</h2>
                     </div>
                     <div className="tag-filter">
@@ -113,7 +117,7 @@ export default function HomeView({
             </main>
 
             <footer className="footer">
-                <p className="muted text-sm">Built with React and Markdown. Plain text on purpose.</p>
+                <p className="muted text-sm">© {new Date().getFullYear()} Allmonty. All content on this site is owned by me and may not be used without my consent.</p>
             </footer>
         </div>
     );
