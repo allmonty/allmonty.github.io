@@ -13,32 +13,58 @@ export default function HomeView({
             {/* Hero section with site intro */}
             <header className="hero">
                 <div className="hero__text">
-                    <p className="eyebrow">Allmonty — stories, notes, and projects</p>
-                    <h1>Plain text, deliberate work.</h1>
+                    <p className="eyebrow">My stories, notes, and projects</p>
+                    <h1>Allmonty</h1>
                     <p className="lead">
-                        I build calm tools, write about learning, and document hobbies plainly. Everything here lives in Markdown.
+                        I like to code, play games, take photos, enjoy good food and drinks, and play the trumpet.
                     </p>
-                    <div className="inline-links">
-                        <a className="text-link" href="#stories">Stories</a>
-                    </div>
+                    <p className="additional-info">
+                        I hope to share useful things I learn along the way, and document my little adventures.
+                    </p>
+                </div>
+                <div className="hero__note">
+                    <p className="muted">Me on the internet:</p>
                     <div className="social-links">
-                        <a className="text-link" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">
+                        <a className="text-link" href="https://www.instagram.com/allmonty/" target="_blank" rel="noreferrer"
+                            title="For my friends and family">
+                            Personal Instagram
+                        </a>
+                        <span>·</span>
+                        <a className="text-link" href="https://www.instagram.com/allmonty.lens/" target="_blank" rel="noreferrer"
+                            title="My tentative to be a photographer">
+                            Photos Instagram
+                        </a>
+                        <span>·</span>
+                        <a className="text-link" href="https://www.linkedin.com/in/allanbrados" target="_blank" rel="noreferrer"
+                            title="Professional profile/resume">
                             LinkedIn
                         </a>
                         <span>·</span>
-                        <a className="text-link" href="https://github.com/your-handle" target="_blank" rel="noreferrer">
+                        <a className="text-link" href="https://github.com/allmonty" target="_blank" rel="noreferrer"
+                            title="Code repositories and projects">
                             GitHub
                         </a>
                         <span>·</span>
-                        <a className="text-link" href="mailto:you@example.com">
-                            Email
+                        <a className="text-link" href="https://gitlab.com/allmonty" target="_blank" rel="noreferrer"
+                            title="Code repositories and projects">
+                            Gitlab
+                        </a>
+                        <span>·</span>
+                        <a className="text-link" href="https://bitbucket.org/allmonty/workspace/repositories/" target="_blank" rel="noreferrer"
+                            title="Code repositories and projects">
+                            Bitbucket
+                        </a>
+                        <span>·</span>
+                        <a className="text-link" href="https://stackoverflow.com/users/7228231/allan-david" target="_blank" rel="noreferrer"
+                            title="Q&A and community for programmers">
+                            Stack Overflow
+                        </a>
+                        <span>·</span>
+                        <a className="text-link" href="https://medium.com/@allmonty" target="_blank" rel="noreferrer"
+                            title="Blogging platform">
+                            Medium
                         </a>
                     </div>
-                </div>
-                <div className="hero__note">
-                    <p className="muted">Now: building tools for small teams.</p>
-                    <p className="muted">Stack: React, Vite, Markdown.</p>
-                    <p className="muted">Location: Remote-first.</p>
                 </div>
             </header>
 

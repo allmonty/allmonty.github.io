@@ -77,15 +77,9 @@ body {
     max-width: 48ch;
 }
 
-.inline-links {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-top: 12px;
-}
-
 .social-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     align-items: center;
     margin-top: 6px;
@@ -97,6 +91,22 @@ body {
     padding-left: 12px;
     font-size: 14px;
     line-height: 1.5;
+}
+
+.hero button {
+    display: inline-block;
+    align-self: flex-end;
+    margin-bottom: 12px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: var(--code);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: border-color 120ms ease, color 120ms ease;
 }
 
 .section {
@@ -356,9 +366,5 @@ body {
 @media (max-width: 640px) {
     .app-shell {
         padding: 20px 14px 30px;
-    }
-
-    .inline-links {
-        flex-wrap: wrap;
     }
 }
