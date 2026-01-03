@@ -13,7 +13,25 @@ import { marked } from 'marked';
 import HomeView from './views/HomeView.jsx';
 import PostView from './views/PostView.jsx';
 
-// Load all .md files from the articles folder at build time
+/**
+ * Dynamically imports all Markdown files from the articles directory as raw strings.
+ * 
+ * @type {Record<string, string>}
+ * 
+ * @description
+ * Uses Vite's `import.meta.glob` to:
+ * - Glob pattern: './articles/*.md' - matches all .md files in the articles folder
+ * - query: '?raw' - imports files as raw text content
+ * - import: 'default' - extracts the default export
+ * - eager: true - eagerly loads all modules at build time instead of lazy loading
+ * 
+ * @example
+ * // rawPosts structure:
+ * // {
+ * //   './articles/post1.md': '# Post 1\nContent here...',
+ * //   './articles/post2.md': '# Post 2\nContent here...'
+ * // }
+ */
 const rawPosts = import.meta.glob('./articles/*.md', {
     query: '?raw',
     import: 'default',

@@ -311,6 +311,10 @@ body {
     display: block;
 }
 
+.post__body a img {
+    cursor: zoom-in;
+}
+
 .text-link {
     color: var(--ink);
     text-decoration: underline;
