@@ -16,7 +16,7 @@ export default function HomeView({
                     <p className="eyebrow">My stories, notes, and projects</p>
                     <h1>Allmonty</h1>
                     <p className="lead">
-                        I like to code, play games, take photos, enjoy good food and drinks, and play the trumpet.
+                        Hello! I am a programmer with passion for playing games, taking photos, enjoying good food and drinks, and playing the trumpet.
                     </p>
                     <p className="additional-info">
                         I hope to share useful things I learn along the way, and document my experiments and adventures.
