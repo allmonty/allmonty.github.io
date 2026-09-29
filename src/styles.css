@@ -79,11 +79,18 @@ body {
 
 .social-links {
     display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+/* One group of related links, dot-separated on a single line */
+.social-links__row {
+    display: flex;
     flex-wrap: wrap;
     gap: 8px;
     align-items: center;
-    margin-top: 6px;
-    color: var(--muted);
 }
 
 .hero__note {

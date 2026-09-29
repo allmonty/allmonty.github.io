@@ -1,5 +1,29 @@
 import React from 'react';
 
+// Links shown in the hero, one row per group
+const linkGroups = [
+    [
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/allanbrados', title: 'Professional profile/resume' },
+        { label: 'Resume', href: 'https://allmonty.github.io/resume', title: 'Professional profile/resume' },
+    ],
+    [
+        { label: 'GitHub', href: 'https://github.com/allmonty', title: 'Code repositories and projects' },
+        { label: 'Gitlab', href: 'https://gitlab.com/allmonty', title: 'Code repositories and projects' },
+        { label: 'Bitbucket', href: 'https://bitbucket.org/allmonty/workspace/repositories/', title: 'Code repositories and projects' },
+    ],
+    [
+        { label: 'Stack Overflow', href: 'https://stackoverflow.com/users/7228231/allan-david', title: 'Q&A and community for programmers' },
+        { label: 'Medium', href: 'https://medium.com/@allmonty', title: 'Blogging platform' },
+    ],
+    [
+        { label: 'Personal Instagram', href: 'https://www.instagram.com/allmonty/', title: 'For my friends and family' },
+        { label: 'Photos Instagram', href: 'https://www.instagram.com/allmonty.lens/', title: 'My tentative to be a photographer' },
+    ],
+    [
+        { label: 'QR code', href: '/qrcode/', title: 'QR code to share this site' },
+    ],
+];
+
 export default function HomeView({
     allTags,
     selectedTags,
@@ -23,52 +47,20 @@ export default function HomeView({
                     </p>
                 </div>
                 <div className="hero__note">
-                    <p className="muted">Me on the internet:</p>
                     <div className="social-links">
-                        <a className="text-link" href="https://www.instagram.com/allmonty/" target="_blank" rel="noreferrer"
-                            title="For my friends and family">
-                            Personal Instagram
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://www.instagram.com/allmonty.lens/" target="_blank" rel="noreferrer"
-                            title="My tentative to be a photographer">
-                            Photos Instagram
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://www.linkedin.com/in/allanbrados" target="_blank" rel="noreferrer"
-                            title="Professional profile/resume">
-                            LinkedIn
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://allmonty.github.io/resume" target="_blank" rel="noreferrer"
-                            title="Professional profile/resume">
-                            Resume
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://github.com/allmonty" target="_blank" rel="noreferrer"
-                            title="Code repositories and projects">
-                            GitHub
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://gitlab.com/allmonty" target="_blank" rel="noreferrer"
-                            title="Code repositories and projects">
-                            Gitlab
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://bitbucket.org/allmonty/workspace/repositories/" target="_blank" rel="noreferrer"
-                            title="Code repositories and projects">
-                            Bitbucket
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://stackoverflow.com/users/7228231/allan-david" target="_blank" rel="noreferrer"
-                            title="Q&A and community for programmers">
-                            Stack Overflow
-                        </a>
-                        <span>·</span>
-                        <a className="text-link" href="https://medium.com/@allmonty" target="_blank" rel="noreferrer"
-                            title="Blogging platform">
-                            Medium
-                        </a>
+                        {linkGroups.map((group, i) => (
+                            <div key={i} className="social-links__row">
+                                {group.map((link, j) => (
+                                    <React.Fragment key={link.label}>
+                                        {j > 0 && <span>·</span>}
+                                        <a className="text-link" href={link.href} target="_blank" rel="noreferrer"
+                                            title={link.title}>
+                                            {link.label}
+                                        </a>
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </header>
