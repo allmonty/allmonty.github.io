@@ -15,8 +15,8 @@ Node version is pinned in `.tool-versions` (nodejs 25.2.1).
 |---|---|
 | `npm install` | Install dependencies |
 | `npm run dev` | Dev server at http://localhost:5173 |
-| `npm run build` | Production build into `dist/` (gitignored) |
-| `npm run preview` | Serve the `dist/` build locally |
+| `npm run build` | Production build into `docs/`, replacing its contents |
+| `npm run preview` | Serve the `docs/` build locally |
 
 There is no test suite. Verify changes by running `npm run build` (it must succeed) and checking the affected pages with `npm run dev`.
 
@@ -37,7 +37,7 @@ src/
     PostView.jsx        A single post
     QrCodeView.jsx      QR code pointing to https://allmonty.github.io
 public/                 Static files copied as-is into the build (post images)
-docs/                   Committed build output that GitHub Pages serves. Never edit by hand.
+docs/                   Build output that GitHub Pages serves (written by `npm run build`, committed). Never edit by hand.
 ```
 
 ## How pages and routing work
@@ -93,9 +93,10 @@ The look is minimalist, text-focused and dark. New UI must match it.
 
 GitHub Pages serves the `docs/` folder of `master`. There is no CI.
 
-1. `npm run build` (output goes to `dist/`).
-2. Replace the contents of `docs/` with the contents of `dist/`. Built asset names are hashed, so remove the old files in `docs/assets/`.
-3. Commit source changes and the updated `docs/`, then push to `master`.
+1. `npm run build`. It empties `docs/` and writes the new build there (`build.outDir` in `vite.config.js`).
+2. Commit source changes and the updated `docs/`, then push to `master`.
+
+Rebuild whenever source changes are meant to go live. Otherwise `docs/` stays out of date.
 
 Only deploy when the site owner asks.
 
@@ -103,7 +104,7 @@ Only deploy when the site owner asks.
 
 - The default branch is `master`. The owner commits directly to it.
 - Commit messages are short, lowercase and imperative: `add qrcode business card page`, `rename App to BlogApp`.
-- Don't commit `dist/` or `node_modules/`. Only commit or push when asked.
+- Don't commit `node_modules/`. Only commit or push when asked.
 
 ## Known quirks
 

@@ -75,7 +75,7 @@ Visit `http://localhost:5173` to view the site, and `http://localhost:5173/qrcod
 npm run build
 ```
 
-The built files will be output to the `dist/` directory.
+The built files will be output to the `docs/` directory, which is what GitHub Pages serves.
 
 ### Preview Production Build
 
@@ -116,10 +116,9 @@ See the "How pages and routing work" section of [AGENTS.md](AGENTS.md) for the s
 This site is configured for GitHub Pages deployment. The built files in the `docs/` folder are served directly by GitHub Pages.
 
 To deploy:
-1. Build the project: `npm run build`
-2. Replace the contents of `docs/` with the contents of `dist/` (asset names are hashed, so remove the old files in `docs/assets/`)
-3. Commit and push to `master`
-4. GitHub Pages will automatically serve the site
+1. Build the project: `npm run build` (this replaces the contents of `docs/`)
+2. Commit and push to `master`
+3. GitHub Pages will automatically serve the site
 
 ## Contributing with AI agents
 

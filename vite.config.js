@@ -35,6 +35,9 @@ const trailingSlashRedirect = () => {
 export default defineConfig({
   plugins: [react(), trailingSlashRedirect()],
   build: {
+    // GitHub Pages serves the docs/ folder, so build straight into it (emptied on each build)
+    outDir: 'docs',
+    emptyOutDir: true,
     rollupOptions: {
       // Multi-page build: each HTML entry is emitted at the same path (qrcode/index.html -> /qrcode/)
       input: {
