@@ -23,11 +23,14 @@ A personal portfolio and blog site built with React and Vite, deployed to GitHub
 ├── src/
 │   ├── App.jsx           # Main app component with routing & post loading
 │   ├── main.jsx          # React entry point
+│   ├── qrcode.jsx        # React entry point for the /qrcode page
 │   ├── styles.css        # Global styles
 │   ├── articles/         # Markdown blog posts
 │   └── views/
 │       ├── HomeView.jsx  # Post feed/listing page
-│       └── PostView.jsx  # Individual post view
+│       ├── PostView.jsx  # Individual post view
+│       └── QrCodeView.jsx # Business-card QR code page
+├── qrcode/index.html     # HTML entry for /qrcode
 ├── public/               # Static assets
 ├── docs/                 # Built output for GitHub Pages
 └── package.json
