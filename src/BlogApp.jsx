@@ -1,5 +1,5 @@
 /**
- * App.jsx - Main React component for the portfolio site
+ * BlogApp.jsx - Main React component for the blog (home feed and posts)
  * 
  * This component handles:
  * - Loading and parsing Markdown articles from the /articles folder
@@ -108,9 +108,9 @@ const renderMarkdown = (md) => marked.parse(md || '');
 posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
 /**
- * Main App component with routing and state management
+ * Main BlogApp component with routing and state management
  */
-export default function App() {
+export default function BlogApp() {
     // Check URL for ?post=slug to determine initial route
     const initialSlug = useMemo(() => {
         const params = new URLSearchParams(window.location.search);

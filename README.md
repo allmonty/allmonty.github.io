@@ -21,7 +21,7 @@ A personal portfolio and blog site built with React and Vite, deployed to GitHub
 
 ```
 ├── src/
-│   ├── App.jsx           # Main app component with routing & post loading
+│   ├── BlogApp.jsx       # Blog component with routing & post loading
 │   ├── main.jsx          # React entry point
 │   ├── qrcode.jsx        # React entry point for the /qrcode page
 │   ├── styles.css        # Global styles
