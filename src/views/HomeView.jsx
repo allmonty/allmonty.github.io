@@ -43,7 +43,7 @@ export default function HomeView({
                         Hello! I am a programmer with passion for playing games, taking photos, enjoying good food and drinks, and playing the trumpet.
                     </p>
                     <p className="additional-info">
-                        I hope to share useful things I learn along the way, and document my experiments and adventures.
+                        This is my corner of the internet. Here you can find my writings, projects, and other things I want to share with the world. I hope you enjoy :)
                     </p>
                 </div>
                 <div className="hero__note">
