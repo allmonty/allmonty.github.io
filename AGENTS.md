@@ -9,14 +9,14 @@ It is a small Vite + React app with no backend, no router library, no TypeScript
 
 ## Commands
 
-Node version is pinned in `.tool-versions` (nodejs 25.2.1).
+Node version is pinned in `.tool-versions` (the deploy workflow uses it too).
 
 | Command | What it does |
 |---|---|
 | `npm install` | Install dependencies |
 | `npm run dev` | Dev server at http://localhost:5173 |
-| `npm run build` | Production build into `docs/`, replacing its contents |
-| `npm run preview` | Serve the `docs/` build locally |
+| `npm run build` | Production build into `dist/` (not committed) |
+| `npm run preview` | Serve the `dist/` build locally |
 
 There is no test suite. Verify changes by running `npm run build` (it must succeed) and checking the affected pages with `npm run dev`.
 
@@ -39,7 +39,7 @@ src/
     PostView.jsx        A single post
     QrCodeView.jsx      QR code pointing to https://allmonty.github.io
 public/                 Static files copied as-is into the build (post images, project thumbnails in resources/projects/)
-docs/                   Build output that GitHub Pages serves (written by `npm run build`, committed). Never edit by hand.
+.github/workflows/deploy.yml  Builds and publishes the site to GitHub Pages on every push to master
 ```
 
 ## How pages and routing work
@@ -93,14 +93,8 @@ The look is minimalist, text-focused and dark. New UI must match it.
 
 ## Deployment
 
-GitHub Pages serves the `docs/` folder of `master`. There is no CI.
-
-1. `npm run build`. It empties `docs/` and writes the new build there (`build.outDir` in `vite.config.js`).
-2. Commit source changes and the updated `docs/`, then push to `master`.
-
-Rebuild whenever source changes are meant to go live. Otherwise `docs/` stays out of date.
-
-Only deploy when the site owner asks.
+Every push to `master` runs `.github/workflows/deploy.yml`, which runs `npm run build` and publishes `dist/` to GitHub Pages (Pages source: GitHub Actions).
+Merging a PR into `master` is the deploy; there is no build output to commit. A run can also be started by hand from the Actions tab.
 
 ## Git
 

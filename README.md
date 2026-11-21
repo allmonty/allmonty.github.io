@@ -38,7 +38,7 @@ A personal portfolio and blog site built with React and Vite, deployed to GitHub
 ├── index.html            # HTML entry for the main site (/)
 ├── qrcode/index.html     # HTML entry for /qrcode
 ├── public/               # Static assets (post images)
-├── docs/                 # Built output for GitHub Pages (don't edit by hand)
+├── .github/workflows/    # GitHub Pages deploy workflow
 ├── vite.config.js        # Multi-page build config
 ├── AGENTS.md             # Guide for AI agents working on the project
 └── package.json
@@ -78,7 +78,7 @@ Visit `http://localhost:5173` to view the site, and `http://localhost:5173/qrcod
 npm run build
 ```
 
-The built files will be output to the `docs/` directory, which is what GitHub Pages serves.
+The built files will be output to the `dist/` directory (not committed).
 
 ### Preview Production Build
 
@@ -128,12 +128,7 @@ See the "How pages and routing work" section of [AGENTS.md](AGENTS.md) for the s
 
 ## Deployment
 
-This site is configured for GitHub Pages deployment. The built files in the `docs/` folder are served directly by GitHub Pages.
-
-To deploy:
-1. Build the project: `npm run build` (this replaces the contents of `docs/`)
-2. Commit and push to `master`
-3. GitHub Pages will automatically serve the site
+Every push to `master` triggers the GitHub Actions workflow in `.github/workflows/deploy.yml`, which builds the site and publishes it to GitHub Pages. Merging a PR is the deploy.
 
 ## Contributing with AI agents
 
