@@ -30,10 +30,12 @@ src/
   main.jsx              Startup file for / : mounts <BlogApp />
   qrcode.jsx            Startup file for /qrcode/ : mounts <QrCodeView />
   BlogApp.jsx           Blog state and routing; also loads and parses the Markdown posts
+  projects.js           Project list for the Projects tab (title, summary, type free|paid, url, optional price)
   styles.css            The only stylesheet, shared by every page
   articles/             Blog posts (Markdown with frontmatter)
   views/
-    HomeView.jsx        Intro, social links, tag filter and post list
+    HomeView.jsx        Intro, social links, and the Projects / All posts tabs
+    ProjectList.jsx     Projects tab: all/free/paid filter and project list
     PostView.jsx        A single post
     QrCodeView.jsx      QR code pointing to https://allmonty.github.io
 public/                 Static files copied as-is into the build (post images)
@@ -44,7 +46,7 @@ docs/                   Build output that GitHub Pages serves (written by `npm r
 
 GitHub Pages is static hosting: a URL path must match a real file.
 
-- **Blog (`/`)**: one HTML page. `BlogApp.jsx` reads `?post=<slug>` from the URL and switches between `HomeView` and `PostView` with `history.pushState` and a `popstate` listener. New blog-like screens should follow this query-param pattern.
+- **Blog (`/`)**: one HTML page. The home view has two tabs, Projects (default) and All posts; the active tab is React state in `BlogApp.jsx`, not in the URL. `BlogApp.jsx` reads `?post=<slug>` from the URL and switches between `HomeView` and `PostView` with `history.pushState` and a `popstate` listener. New blog-like screens should follow this query-param pattern.
 - **Standalone pages (like `/qrcode/`)**: each one is a separate Vite HTML entry. To add a page named `foo`:
   1. Create `foo/index.html`, copying the `<head>` (viewport meta, Google Fonts) from `index.html` and pointing its script at `/src/foo.jsx`.
   2. Create `src/foo.jsx`, which imports `./styles.css` and mounts the view, mirroring `src/qrcode.jsx`.
