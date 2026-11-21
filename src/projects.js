@@ -40,6 +40,13 @@ const projects = [
         repo: 'https://github.com/allmonty/gamebook-framework',
         image: '/resources/projects/gamebook-framework.jpg',
     },
+    {
+        title: 'System Design Atlas',
+        summary: '42 system-design case studies with interactive diagrams, an incident casebook, primers and a practice workbook, in English and Brazilian Portuguese.',
+        type: 'free',
+        site: 'https://allmonty.github.io/system-design-atlas/',
+        repo: 'https://github.com/allmonty/system-design-atlas',
+    },
 ];
 
 export default projects;
