@@ -19,6 +19,18 @@
  * },
  */
 const projects = [
+    {
+        title: 'Better Code Agent',
+        summary: 'Guardrails that keep AI-written code at production quality: AGENTS.md templates, TDD and review skills, a quality-gate hook and cross-model evals.',
+        type: 'free',
+        url: 'https://github.com/allmonty/better-code-agent',
+    },
+    {
+        title: 'Gamebook Framework',
+        summary: 'An open format for gamebooks: a story is one JSON file whose rules (stats, dice, combat) are data, so one engine plays many kinds of gamebook.',
+        type: 'free',
+        url: 'https://github.com/allmonty/gamebook-framework',
+    },
 ];
 
 export default projects;
