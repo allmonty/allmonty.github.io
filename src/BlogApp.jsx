@@ -119,6 +119,9 @@ export default function BlogApp() {
 
     // State for which post is currently being viewed (null = home feed)
     const [viewSlug, setViewSlug] = useState(initialSlug);
+    // State for which home tab is shown: 'projects' (default) or 'posts'.
+    // Kept here so returning from a post lands back on the same tab.
+    const [activeTab, setActiveTab] = useState('projects');
     // State for which tags are currently selected in the filter
     const [selectedTags, setSelectedTags] = useState([]);
 
@@ -186,6 +189,8 @@ export default function BlogApp() {
 
     return (
         <HomeView
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
             allTags={allTags}
             selectedTags={selectedTags}
             toggleTag={toggleTag}

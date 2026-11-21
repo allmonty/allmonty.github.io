@@ -6,6 +6,7 @@ A personal portfolio and blog site built with React and Vite, deployed to GitHub
 
 - 📝 Markdown-based blog posts with YAML frontmatter
 - 🏷️ Tag-based filtering
+- 🧰 Projects tab with free/paid filter
 - 🎨 Clean, minimalist design
 - ⚡ Fast development with Vite
 - 📱 Responsive layout
@@ -26,10 +27,12 @@ A personal portfolio and blog site built with React and Vite, deployed to GitHub
 │   ├── BlogApp.jsx       # Blog component with routing & post loading
 │   ├── main.jsx          # React entry point
 │   ├── qrcode.jsx        # React entry point for the /qrcode page
+│   ├── projects.js       # Projects listed in the Projects tab
 │   ├── styles.css        # Global styles
 │   ├── articles/         # Markdown blog posts
 │   └── views/
-│       ├── HomeView.jsx  # Post feed/listing page
+│       ├── HomeView.jsx  # Home page: intro, Projects and All posts tabs
+│       ├── ProjectList.jsx # Projects tab with free/paid filter
 │       ├── PostView.jsx  # Individual post view
 │       └── QrCodeView.jsx # Business-card QR code page
 ├── index.html            # HTML entry for the main site (/)
@@ -105,6 +108,18 @@ The app will automatically load and parse all `.md` files in the articles direct
 Keep the frontmatter simple: one `key: value` per line and inline lists like `[a, b]`.
 
 Put post images in `public/resources/photos/post_YYYYMMDD/` and reference them with absolute paths, e.g. `/resources/photos/post_YYYYMMDD/photo.jpg`.
+
+## Adding a Project
+
+Add an entry to the array in `src/projects.js`:
+
+```js
+{ title: 'My project', summary: 'One-line description.', type: 'paid', price: '$5', site: 'https://...', repo: 'https://github.com/...' },
+```
+
+`type` is `free` or `paid` and drives the filter. `site` (live site or store page) and `repo` (source code) are both optional, but give at least one; the card links to each one it has. `price` is optional. Projects show in the order listed.
+
+For a thumbnail, add `image: '/resources/projects/my-project.jpg'` and put a 2:1 image in `public/resources/projects/`. A GitHub social preview resized to 640x320 works well.
 
 ## Adding a Standalone Page
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import ProjectList from './ProjectList.jsx';
 
 // Links shown in the hero, one row per group
 const linkGroups = [
@@ -24,7 +25,15 @@ const linkGroups = [
     ],
 ];
 
+// Tabs of the main section, in display order
+const tabs = [
+    { id: 'projects', label: 'Projects' },
+    { id: 'posts', label: 'All posts' },
+];
+
 export default function HomeView({
+    activeTab,
+    setActiveTab,
     allTags,
     selectedTags,
     toggleTag,
@@ -66,45 +75,60 @@ export default function HomeView({
             </header>
 
             <main>
-                <section id="stories" className="section">
-                    <div className="section__header">
-                        <h2>All posts</h2>
-                    </div>
-                    <div className="tag-filter">
-                        {allTags.map((tag) => (
+                <section id="main" className="section">
+                    <div className="section__header tabs" role="tablist">
+                        {tabs.map((tab) => (
                             <button
-                                key={tag}
-                                className={`tag-button ${selectedTags.includes(tag) ? 'tag-button--active' : ''}`}
-                                onClick={() => toggleTag(tag)}
+                                key={tab.id}
+                                role="tab"
+                                aria-selected={activeTab === tab.id}
+                                className={`tab-button ${activeTab === tab.id ? 'tab-button--active' : ''}`}
+                                onClick={() => setActiveTab(tab.id)}
                             >
-                                {tag}
+                                {tab.label}
                             </button>
                         ))}
-                        {selectedTags.length > 0 && (
-                            <button className="tag-button tag-button--clear" onClick={() => setSelectedTags([])}>
-                                clear
-                            </button>
-                        )}
                     </div>
-                    <div className="writing">
-                        <div className="writing__list">
-                            {filteredPosts.map((post) => (
-                                <button
-                                    key={post.slug}
-                                    className="post-card"
-                                    onClick={() => openPost(post.slug)}
-                                >
-                                    <div className="muted text-sm">{post.date}</div>
-                                    <div className="list__title">{post.title}</div>
-                                    <div className="list__desc">{post.summary}</div>
-                                    <div className="list__meta">{post.tags.join(' / ')}</div>
-                                </button>
-                            ))}
-                            {filteredPosts.length === 0 && (
-                                <p className="muted">No posts with selected tags.</p>
-                            )}
-                        </div>
-                    </div>
+                    {activeTab === 'projects' && <ProjectList />}
+                    {activeTab === 'posts' && (
+                        <>
+                            <div className="tag-filter">
+                                {allTags.map((tag) => (
+                                    <button
+                                        key={tag}
+                                        className={`tag-button ${selectedTags.includes(tag) ? 'tag-button--active' : ''}`}
+                                        onClick={() => toggleTag(tag)}
+                                    >
+                                        {tag}
+                                    </button>
+                                ))}
+                                {selectedTags.length > 0 && (
+                                    <button className="tag-button tag-button--clear" onClick={() => setSelectedTags([])}>
+                                        clear
+                                    </button>
+                                )}
+                            </div>
+                            <div className="writing">
+                                <div className="writing__list">
+                                    {filteredPosts.map((post) => (
+                                        <button
+                                            key={post.slug}
+                                            className="post-card"
+                                            onClick={() => openPost(post.slug)}
+                                        >
+                                            <div className="muted text-sm">{post.date}</div>
+                                            <div className="list__title">{post.title}</div>
+                                            <div className="list__desc">{post.summary}</div>
+                                            <div className="list__meta">{post.tags.join(' / ')}</div>
+                                        </button>
+                                    ))}
+                                    {filteredPosts.length === 0 && (
+                                        <p className="muted">No posts with selected tags.</p>
+                                    )}
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </section>
             </main>
 

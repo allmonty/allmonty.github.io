@@ -135,6 +135,38 @@ body {
     margin-bottom: 18px;
 }
 
+/* Home section tabs (Projects / All posts), styled like the section heading */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
+.tab-button {
+    padding: 0 0 4px;
+    margin: 4px 0 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: var(--text);
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: border-color 120ms ease, color 120ms ease;
+}
+
+.tab-button:hover {
+    color: var(--accent);
+}
+
+.tab-button--active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+}
+
 .eyebrow {
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -261,6 +293,57 @@ body {
 
 .post-card:hover {
     color: var(--accent);
+}
+
+/* One project: optional thumbnail, title, summary, type and links */
+.project-card {
+    padding: 10px 10px 10px 0;
+}
+
+.project-card__title {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.project-card__title:hover {
+    color: var(--accent);
+}
+
+/* Site / Repository links, dot-separated like the hero links */
+.project-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* Thumbnail on the left half, text on the right half; stacks on phones.
+   The image keeps its 2:1 ratio, so the row grows to fit it. */
+.project-card--with-image {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: center;
+}
+
+.project-card__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    transition: border-color 120ms ease;
+}
+
+.project-card__image-link {
+    display: block;
+}
+
+.project-card__image-link:hover .project-card__image {
+    border-color: var(--accent);
 }
 
 .post-card--active {
@@ -418,5 +501,10 @@ body {
 @media (max-width: 640px) {
     .app-shell {
         padding: 20px 14px 30px;
+    }
+
+    .project-card--with-image {
+        grid-template-columns: 1fr;
+        gap: 8px;
     }
 }
