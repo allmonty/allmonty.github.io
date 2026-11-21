@@ -114,10 +114,10 @@ Put post images in `public/resources/photos/post_YYYYMMDD/` and reference them w
 Add an entry to the array in `src/projects.js`:
 
 ```js
-{ title: 'My project', summary: 'One-line description.', type: 'paid', price: '$5', url: 'https://...' },
+{ title: 'My project', summary: 'One-line description.', type: 'paid', price: '$5', site: 'https://...', repo: 'https://github.com/...' },
 ```
 
-`type` is `free` or `paid` and drives the filter. `price` is optional. Projects show in the order listed.
+`type` is `free` or `paid` and drives the filter. `site` (live site or store page) and `repo` (source code) are both optional, but give at least one; the card links to each one it has. `price` is optional. Projects show in the order listed.
 
 For a thumbnail, add `image: '/resources/projects/my-project.jpg'` and put a 2:1 image in `public/resources/projects/`. A GitHub social preview resized to 640x320 works well.
 

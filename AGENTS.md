@@ -30,7 +30,7 @@ src/
   main.jsx              Startup file for / : mounts <BlogApp />
   qrcode.jsx            Startup file for /qrcode/ : mounts <QrCodeView />
   BlogApp.jsx           Blog state and routing; also loads and parses the Markdown posts
-  projects.js           Project list for the Projects tab (title, summary, type free|paid, url, optional price and image)
+  projects.js           Project list for the Projects tab (title, summary, type free|paid, site and/or repo, optional price and image)
   styles.css            The only stylesheet, shared by every page
   articles/             Blog posts (Markdown with frontmatter)
   views/

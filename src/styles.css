@@ -295,10 +295,29 @@ body {
     color: var(--accent);
 }
 
-/* Project entries are links, so drop the default link styling */
+/* One project: optional thumbnail, title, summary, type and links */
 .project-card {
+    padding: 10px 10px 10px 0;
+}
+
+.project-card__title {
     display: block;
+    color: var(--ink);
     text-decoration: none;
+}
+
+.project-card__title:hover {
+    color: var(--accent);
+}
+
+/* Site / Repository links, dot-separated like the hero links */
+.project-card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
 }
 
 /* Thumbnail on the left half, text on the right half; stacks on phones.
@@ -319,7 +338,11 @@ body {
     transition: border-color 120ms ease;
 }
 
-.project-card:hover .project-card__image {
+.project-card__image-link {
+    display: block;
+}
+
+.project-card__image-link:hover .project-card__image {
     border-color: var(--accent);
 }
 
