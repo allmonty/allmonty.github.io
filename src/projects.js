@@ -46,6 +46,7 @@ const projects = [
         type: 'free',
         site: 'https://allmonty.github.io/system-design-atlas/',
         repo: 'https://github.com/allmonty/system-design-atlas',
+        image: '/resources/projects/system-design-atlas.jpg',
     },
 ];
 
