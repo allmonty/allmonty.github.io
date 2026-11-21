@@ -301,10 +301,11 @@ body {
     text-decoration: none;
 }
 
-/* Thumbnail on the left, text on the right; stacks on phones */
+/* Thumbnail on the left half, text on the right half; stacks on phones.
+   The image keeps its 2:1 ratio, so the row grows to fit it. */
 .project-card--with-image {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 14px;
     align-items: center;
 }
