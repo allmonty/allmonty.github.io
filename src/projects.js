@@ -7,6 +7,8 @@
  * - type:    'free' or 'paid' (paid = something I am selling)
  * - url:     Where to see or buy it (opens in a new tab)
  * - price:   Optional, shown next to the type for paid projects (e.g. '$5')
+ * - image:   Optional thumbnail, 2:1 (e.g. a GitHub social preview resized to 640x320),
+ *            stored in public/resources/projects/ and referenced with an absolute path
  *
  * Projects are shown in the order they appear here.
  *
@@ -24,12 +26,14 @@ const projects = [
         summary: 'Guardrails that keep AI-written code at production quality: AGENTS.md templates, TDD and review skills, a quality-gate hook and cross-model evals.',
         type: 'free',
         url: 'https://github.com/allmonty/better-code-agent',
+        image: '/resources/projects/better-code-agent.jpg',
     },
     {
         title: 'Gamebook Framework',
         summary: 'An open format for gamebooks: a story is one JSON file whose rules (stats, dice, combat) are data, so one engine plays many kinds of gamebook.',
         type: 'free',
         url: 'https://github.com/allmonty/gamebook-framework',
+        image: '/resources/projects/gamebook-framework.jpg',
     },
 ];
 

@@ -119,6 +119,8 @@ Add an entry to the array in `src/projects.js`:
 
 `type` is `free` or `paid` and drives the filter. `price` is optional. Projects show in the order listed.
 
+For a thumbnail, add `image: '/resources/projects/my-project.jpg'` and put a 2:1 image in `public/resources/projects/`. A GitHub social preview resized to 640x320 works well.
+
 ## Adding a Standalone Page
 
 Pages with their own URL (like `/qrcode`) are separate HTML entries, because GitHub Pages needs a real file for each path.

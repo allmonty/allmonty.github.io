@@ -6,7 +6,7 @@ const filters = ['all', 'free', 'paid'];
 
 /**
  * Projects tab of the home page: free/paid filter and the project list.
- * Each project links out to where it can be seen or bought.
+ * Each project links out to where it can be seen or bought, with an optional thumbnail.
  */
 export default function ProjectList() {
     const [filter, setFilter] = useState('all');
@@ -28,29 +28,32 @@ export default function ProjectList() {
                     </button>
                 ))}
             </div>
-            <div className="writing">
-                <div className="writing__list">
-                    {shown.map((project) => (
-                        <a
-                            key={project.title}
-                            className="post-card project-card"
-                            href={project.url}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
+            <div className="writing__list">
+                {shown.map((project) => (
+                    <a
+                        key={project.title}
+                        className={`post-card project-card ${project.image ? 'project-card--with-image' : ''}`}
+                        href={project.url}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {project.image && (
+                            <img className="project-card__image" src={project.image} alt="" loading="lazy" />
+                        )}
+                        <div>
                             <div className="list__title">{project.title}</div>
                             <div className="list__desc">{project.summary}</div>
                             <div className="list__meta">
                                 {[project.type, project.price].filter(Boolean).join(' · ')}
                             </div>
-                        </a>
-                    ))}
-                    {shown.length === 0 && (
-                        <p className="muted">
-                            {projects.length === 0 ? 'No projects yet.' : `No ${filter} projects yet.`}
-                        </p>
-                    )}
-                </div>
+                        </div>
+                    </a>
+                ))}
+                {shown.length === 0 && (
+                    <p className="muted">
+                        {projects.length === 0 ? 'No projects yet.' : `No ${filter} projects yet.`}
+                    </p>
+                )}
             </div>
         </>
     );
